@@ -66,6 +66,8 @@ spring:
       timeout: 50000
       retries: 1
       loadbalance: leastactive
+      #此dubbo过滤器可无需配置
+      filter: providerRpcTraceFilter
       #版本号分组信息
       group: zj
       version: 1.0
@@ -75,6 +77,8 @@ spring:
       retries: 1
       loadbalance: leastactive
       validation: true
+      #此dubbo过滤器可无需配置
+      filter: consumerRpcTraceFilter
       #版本号分组信息
       group: zj
       version: 1.0
