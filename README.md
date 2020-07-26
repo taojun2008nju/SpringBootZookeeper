@@ -1,2 +1,2 @@
 【技术栈】
-SpringBoot、Zookeeper、Redis、Guava
+SpringBoot、Zookeeper、Kafka、Redis、Guava
