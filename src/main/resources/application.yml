@@ -1,0 +1,150 @@
+project:
+  application: SpringBoot
+  name: SpringBoot
+  chineseName: SpringBoot
+  version:  1.0.0
+  unpackTime: 2020/06/21
+  PIC: tapjun
+  versionControlNo: 1.0
+  versionControlPath:
+  framework: SpringBoot
+
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    display-name: SpringBoot
+    basedir: /tomcat
+    accesslog:
+      enabled: true
+      buffered: true
+      directory: ./logs
+      file-date-format: _yyyy-MM-dd
+      pattern: '%h %t "%r" %s %b %D %I "%{X-Forwarded-For}i" "%{User-Agent}i" "%{Referer}i" "%{X-Real-IP}i"'
+      prefix: ${project.name}_accesslog
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
+  # 上下文路径
+  servlet:
+    context-path: /SpringBoot
+    display-name: SpringBoot
+
+spring:
+  profiles:
+    #各个环境配置文件，需要修改  开发：dev， 测试：test，生产：prod
+    active: dev
+  application:
+    name: springBoot
+  task:
+    pool:
+      corePoolSize: 20
+      maxPoolSize: 400
+      keepAliveSeconds: 30000
+      queueCapacity: 200
+  dubbo:
+    application:
+      #注册在注册中心的名称，唯一标识，请勿重复
+      id: zookeeper
+      name: zookeeper
+    #注册中心地址，zookeeper集群，启动输出可以看见链接了多个
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    #暴露服务方式
+    protocol:
+      id: dubbo
+      #默认名称，勿修改
+      name: dubbo
+      #暴露服务端口 （默认是20880，修改端口，不同的服务提供者端口不能重复）
+      port: 20883
+      status : server
+    #调用dubbo组建扫描的项目路径
+    scan: com.test.service.impl
+    provider:
+      validation: true
+      timeout: 50000
+      retries: 1
+      loadbalance: leastactive
+      #版本号分组信息
+      group: zj
+      version: 1.0
+    consumer:
+      check: false
+      timeout: 30000
+      retries: 1
+      loadbalance: leastactive
+      validation: true
+      #版本号分组信息
+      group: zj
+      version: 1.0
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 2000
+        max-idle: 200
+        min-idle: 100
+        max-wait: 2000
+        # true时连接池不生效, false时连接池生效, lettuce客户端不需要连接池，对性能没有提高，除非用到事务相关的特性再考虑设置连接池
+        share-native-connection: true
+
+#guava缓存
+guava:
+  cache:
+    #设置缓存最大容量
+    maximumSize: 500
+    #设置并发级别
+    concurrencyLevel: 8
+    #设置写缓存后过期时间（单位小时）
+    expireAfterWriteDuration: -1
+    #设置缓存容器的初始容量
+    initialCapacity: 50
+    #维护缓存模块多个,  ALL-所有，当前模块：REPLY,REPLY_REL,PRODUCT_REL,LIMIT_FILTER
+    modules: ALL
+
+logging:
+  config: classpath:log/log4j2-${spring.profiles.active}.xml
+
+#dubbo:
+#  application:
+#    name: zookeeper-provider
+#  registry:
+#    address: zookeeper://127.0.0.1:2181
+#    id: registry-1
+#  protocol:
+#    id: dubbo
+#    name: dubbo
+#    port: 20888
+#    status: server
+#  scan:
+#    basePackages: com.test.service.impl
+#  provider:
+#    version: 1.0
+
+#调用第三方http接口配置
+http:
+  #超时时间，单位毫秒
+  timeOut: 8000
+  #最大连接数
+  maxTotal: 400
+  #单个路由最大连接数
+  defaultMaxPerRoute: 200
+  # 线程池配置
+  thread-pool:
+    core-pool-size: 50
+    max-pool-size: 1000
+    queue-capacity: 10000
+    keep-alive-seconds: 300
+
+#依赖系统的地址
+dependency:
+  #Ord地址
+  yst-ord-api-url: http://127.0.0.1:8080/yst-ord-api
+#系统参数配置（运营不关心的配置）
+systemparameters:
+  project:
+    name: 'NVAS'
