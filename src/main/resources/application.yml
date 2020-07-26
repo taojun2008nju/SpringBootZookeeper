@@ -1,9 +1,9 @@
 project:
-  application: SpringBoot
-  name: SpringBoot
-  chineseName: SpringBoot
-  version:  1.0.0
-  unpackTime: 2020/06/21
+  application: SpringBootZookeeper
+  name: SpringBootZookeeper
+  chineseName: SpringBoot工程Zookeeeper样例
+  version:  1.0
+  unpackTime: 2020/07/26
   PIC: tapjun
   versionControlNo: 1.0
   versionControlPath:
