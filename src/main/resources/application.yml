@@ -4,7 +4,7 @@ project:
   chineseName: SpringBoot工程Zookeeeper样例
   version:  1.0
   unpackTime: 2020/07/26
-  PIC: tapjun
+  PIC: taojun
   versionControlNo: 1.0
   versionControlPath:
   framework: SpringBoot
