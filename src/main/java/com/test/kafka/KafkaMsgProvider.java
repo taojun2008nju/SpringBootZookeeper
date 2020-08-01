@@ -1,5 +1,6 @@
 package com.test.kafka;
 
+import com.test.constant.KafkaConstants;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,15 @@ import org.springframework.util.concurrent.ListenableFuture;
 @Slf4j
 @Component
 @EnableScheduling
-public class KafkaMsgProducer {
+public class KafkaMsgProvider {
 
     @Autowired
     private KafkaTemplate kafkaTemplate;
 
-    String topicSimple = "SIMPLE";
-
     @Scheduled(cron = "0/10 * * * * ?")
     public void send() {
         String message = UUID.randomUUID().toString();
-        ListenableFuture listenableFuture = kafkaTemplate.send(topicSimple, message);
+        ListenableFuture listenableFuture = kafkaTemplate.send(KafkaConstants.TOPIC_SIMPLE, message);
         listenableFuture.addCallback(
             o -> log.info("消息发送成功,{}", o.toString()),
             throwable -> log.info("消息发送失败,{}" + throwable.getMessage())
