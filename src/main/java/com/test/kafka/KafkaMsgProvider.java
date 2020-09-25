@@ -13,7 +13,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 /**
  * @author Administrator
  * @date 2020/7/26 16:10:00
- * @description TODO
+ * @description Kafka消息生产者
  */
 @Slf4j
 @Component

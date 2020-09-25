@@ -10,7 +10,7 @@ project:
   framework: SpringBoot
 
 server:
-  port: 8080
+  port: 8081
   tomcat:
     uri-encoding: UTF-8
     display-name: SpringBoot
@@ -28,15 +28,15 @@ server:
       suffix: .log
   # 上下文路径
   servlet:
-    context-path: /SpringBoot
-    display-name: SpringBoot
+    context-path: /springBootZookeeper
+    display-name: springBootZookeeper
 
 spring:
   profiles:
     #各个环境配置文件，需要修改  开发：dev， 测试：test，生产：prod
     active: dev
   application:
-    name: springBoot
+    name: springBootZookeeper
   task:
     pool:
       corePoolSize: 20
@@ -57,7 +57,7 @@ spring:
       #默认名称，勿修改
       name: dubbo
       #暴露服务端口 （默认是20880，修改端口，不同的服务提供者端口不能重复）
-      port: 20883
+      port: 20884
       status : server
     #调用dubbo组建扫描的项目路径
     scan: com.test.service.impl
@@ -69,7 +69,7 @@ spring:
       #此dubbo过滤器可无需配置
       filter: providerRpcTraceFilter
       #版本号分组信息
-      group: zj
+      group: test
       version: 1.0
     consumer:
       check: false
@@ -80,7 +80,7 @@ spring:
       #此dubbo过滤器可无需配置
       filter: consumerRpcTraceFilter
       #版本号分组信息
-      group: zj
+      group: test
       version: 1.0
   #redis配置
   redis:
