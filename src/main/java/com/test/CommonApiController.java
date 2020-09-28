@@ -1,11 +1,13 @@
 package com.test;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.test.bean.CacheTestBean;
 import com.test.cache.GuavaCacheManager;
 import com.test.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,5 +53,24 @@ public class CommonApiController {
 
         log.info("Method:testRedis:");
         return "Hello World Redis";
+    }
+
+    /**
+     * 熔断之后执行的方法
+     * @return
+     */
+    public String testFallback(String id){
+        return "熔断--服务正忙，请求稍后再试！";
+    }
+
+    @HystrixCommand(fallbackMethod = "testFallback", ignoreExceptions = NullPointerException.class)
+    @RequestMapping(value = "/testHystrix",method = RequestMethod.GET)
+    public String testHystrix(String id) {
+        System.out.println("Method:testHystrix");
+        if (id.equalsIgnoreCase("1")) {
+            throw new NullPointerException();
+        } else {
+            throw new ArithmeticException();
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.test.constant.KafkaConstants;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,7 +22,9 @@ import org.springframework.util.concurrent.ListenableFuture;
 public class KafkaMsgProvider {
 
     @Autowired
+    @Qualifier(value = "kafkaTemplate")
     private KafkaTemplate kafkaTemplate;
+
 
     @Scheduled(cron = "0/10 * * * * ?")
     public void send() {
